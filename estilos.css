@@ -1,0 +1,111 @@
+.fondo-naranja {
+  background-color: #ff6a00;
+}
+
+.texto-naranja {
+  color: #ff6a00;
+}
+
+.logo-p {
+  background-color: #ff6a00;
+  color: white;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.btn-naranja {
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+}
+
+.btn-naranja:hover {
+  background-color: #e65c00;
+  color: white;
+}
+
+.img-producto {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Seguimiento Styles */
+.contenedor-seguimiento {
+  min-height: calc(100vh - 80px);
+  background-color: #f8f9fa;
+  padding-top: 35px;
+}
+
+.caja-seguimiento {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.titulo-seguimiento {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 28px;
+  color: #111827;
+}
+
+.card-seguimiento {
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 24px;
+}
+
+.input-seguimiento {
+  height: 48px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.btn-buscar-pedido {
+  height: 48px;
+  border-radius: 9px;
+  font-weight: 700;
+  padding: 0 28px;
+  white-space: nowrap;
+}
+
+/* Personal Styles */
+
+.btn-tab-personal {
+  border-radius: 0;
+  padding: 16px 0;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+}
+
+.btn-tab-personal.active {
+  color: #ff6a00;
+  border-bottom: 2px solid #ff6a00;
+}
+
+.card-producto-personal {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card-producto-personal img {
+  height: 185px;
+  object-fit: cover;
+}
+
+.btn-desactivar {
+  background-color: #d89000;
+  color: white;
+}
+
+.btn-desactivar:hover {
+  background-color: #bd7d00;
+  color: white;
+}

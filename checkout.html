@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Pedido - Pickup Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        .logo-p { background-color: #ff6a00; color: white; border-radius: 5px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .checkout-container { max-width: 1000px; margin-top: 50px; }
+        .card-custom { border: none; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .form-label { font-weight: 500; color: #555; display: flex; align-items: center; gap: 8px; margin-top: 15px; }
+        .form-control, .form-select { border-radius: 8px; padding: 12px; border: 1px solid #dee2e6; }
+        .btn-orange { background-color: #ff6600; color: white; border: none; font-weight: bold; padding: 15px; border-radius: 12px; width: 100%; margin-top: 25px; }
+        .btn-orange:hover { background-color: #e65c00; color: white; }
+        .texto-naranja { color: #ff6600; font-weight: bold; }
+        .resumen-item { font-size: 0.9rem; color: #666; margin-bottom: 10px; }
+        .warning-text { font-size: 0.8rem; color: #f39c12; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-p me-2">P</div>
+                <strong>Pickup Express</strong>
+            </a>
+            <div class="ms-auto d-flex align-items-center text-muted small">
+                <span class="px-2">Menú</span>
+                <span class="px-2">Seguir Pedido</span>
+                <div class="position-relative ms-2">
+                    <i class="bi bi-cart3 fs-5"></i>
+                    <span id="nav-counter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container checkout-container">
+        <h2 class="fw-bold mb-5">Finalizar Pedido</h2>
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card card-custom p-4">
+                    <h5 class="fw-bold mb-4">Información del Cliente</h5>
+                    
+                    <label class="form-label"><i class="bi bi-person"></i> Nombre Completo</label>
+                    <input type="text" class="form-control" placeholder="Tu nombre completo">
+
+                    <label class="form-label"><i class="bi bi-telephone"></i> Teléfono</label>
+                    <input type="text" class="form-control" placeholder="+1234567890">
+
+                    <label class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
+                    <input type="email" class="form-control" placeholder="tu@email.com">
+
+                    <label class="form-label"><i class="bi bi-clock"></i> Hora de Recolección</label>
+                    <select class="form-select">
+                        <option selected disabled>Selecciona una hora</option>
+                        <option>12:00 PM</option>
+                        <option>01:00 PM</option>
+                        <option>02:00 PM</option>
+                    </select>
+                    <div class="warning-text"><i class="bi bi-exclamation-triangle-fill"></i> Asegúrate de llegar a la hora seleccionada</div>
+
+                    <button class="btn btn-orange">Confirmar Pedido</button>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card card-custom p-4">
+                    <h5 class="fw-bold mb-4">Resumen del Pedido</h5>
+                    
+                    <div id="resumen-items-lista">
+                        </div>
+
+                    <hr class="my-4">
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 fw-bold mb-0">Total</span>
+                        <span id="checkout-total" class="h4 texto-naranja">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cargarResumen() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const lista = document.getElementById('resumen-items-lista');
+            const totalTxt = document.getElementById('checkout-total');
+            const navCounter = document.getElementById('nav-counter');
+            
+            lista.innerHTML = '';
+            let total = 0;
+            let itemsCount = 0;
+
+            carrito.forEach(item => {
+                total += item.precio * item.cantidad;
+                itemsCount += item.cantidad;
+                lista.innerHTML += `
+                    <div class="d-flex justify-content-between resumen-item">
+                        <span>${item.cantidad}x ${item.nombre}</span>
+                        <span class="fw-bold text-dark">$${(item.precio * item.cantidad).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            totalTxt.innerText = `$${total.toFixed(2)}`;
+            navCounter.innerText = itemsCount;
+            if(itemsCount === 0) navCounter.classList.add('d-none');
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarResumen);
+    </script>
+</body>
+</html>
