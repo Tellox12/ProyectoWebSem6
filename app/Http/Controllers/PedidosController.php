@@ -34,6 +34,7 @@ class PedidosController extends Controller
 
         $datos = $request->all();
         $datos['numero'] = $request->numero ?: $this->crearNumeroPedido();
+        $datos['correo'] = $request->correo ?: '';
         $datos['estado'] = $request->estado ?: 'pendiente';
 
         $pedido = Pedido::create($datos);
@@ -105,7 +106,7 @@ class PedidosController extends Controller
             'numero' => $actualizando ? 'nullable|string|max:30' : 'nullable|string|max:30|unique:pedidos,numero',
             'nombre' => 'required|string|max:80',
             'telefono' => 'required|string|max:20',
-            'correo' => 'required|email|max:120',
+            'correo' => 'nullable|email|max:120',
             'hora' => 'required|string|max:20',
             'notas' => 'nullable|string|max:255',
             'items' => 'required|array|min:1',

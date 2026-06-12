@@ -62,6 +62,42 @@ const PRODUCTOS_INICIALES = [
         img: 'img/jugo.jpg',
         activo: true,
     },
+    {
+        id: 'hamburguesa-artesanal',
+        nombre: 'Hamburguesa Artesanal',
+        categoria: 'comidas',
+        descripcion: 'Hamburguesa con carne, lechuga, tomate y pan rustico',
+        precio: 8.5,
+        img: 'img/hamburguesa.jpg',
+        activo: true,
+    },
+    {
+        id: 'tacos-variados',
+        nombre: 'Tacos Variados',
+        categoria: 'comidas',
+        descripcion: 'Orden de tacos con salsas frescas y limon',
+        precio: 7,
+        img: 'img/tacos.jpg',
+        activo: true,
+    },
+    {
+        id: 'ensalada-de-pollo',
+        nombre: 'Ensalada de Pollo',
+        categoria: 'comidas',
+        descripcion: 'Ensalada fresca con pollo, hojas verdes y granada',
+        precio: 6.5,
+        img: 'img/ensalada-pollo.jpg',
+        activo: true,
+    },
+    {
+        id: 'wrap-vegetariano',
+        nombre: 'Wrap Vegetariano',
+        categoria: 'comidas',
+        descripcion: 'Wrap con vegetales frescos, lechuga y tomate',
+        precio: 6,
+        img: 'img/wrap-vegetariano.jpg',
+        activo: true,
+    },
 ];
 
 let filtroMenuActual = 'todos';
@@ -192,7 +228,20 @@ function obtenerProductos() {
         return [...PRODUCTOS_INICIALES];
     }
 
-    return productos.map(normalizarProducto);
+    const normalizados = productos.map(normalizarProducto);
+    const existentes = new Set(normalizados.map((producto) => producto.id));
+
+    PRODUCTOS_INICIALES.forEach((producto) => {
+        if (!existentes.has(producto.id)) {
+            normalizados.push(normalizarProducto(producto));
+        }
+    });
+
+    if (normalizados.length !== productos.length) {
+        guardarProductos(normalizados);
+    }
+
+    return normalizados;
 }
 
 function guardarProductos(productos) {
@@ -262,7 +311,7 @@ function pedidoDesdeApi(pedido) {
         cliente: {
             nombre: pedido.nombre,
             telefono: pedido.telefono,
-            correo: pedido.correo,
+            correo: pedido.correo || '',
         },
         hora: pedido.hora || '',
         notas: pedido.notas || '',
@@ -277,7 +326,7 @@ function pedidoParaApi(pedido) {
         numero: pedido.id,
         nombre: pedido.cliente.nombre,
         telefono: pedido.cliente.telefono,
-        correo: pedido.cliente.correo,
+        correo: pedido.cliente.correo || '',
         hora: pedido.hora,
         notas: pedido.notas,
         items: pedido.items,
